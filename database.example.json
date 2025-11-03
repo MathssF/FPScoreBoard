@@ -24,5 +24,8 @@
       {"steamid64": "3"},
       {"steamid64": "4"}
     ]
+  },
+  "options": {
+    "lang:": "En"
   }
 }

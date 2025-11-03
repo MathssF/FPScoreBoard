@@ -6,5 +6,8 @@
   "lists": {
     "users": [],
     "players": []
+  },
+  "options": {
+    "lang:": "En"
   }
 }

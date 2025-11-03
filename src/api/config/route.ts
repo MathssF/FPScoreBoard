@@ -4,7 +4,7 @@ import path from "path";
 
 export async function GET() {
   try {
-    const filePath = path.join(process.cwd(), "database.json");
+    const filePath = path.join(process.cwd(), "../../../database.json");
     const data = fs.readFileSync(filePath, "utf-8");
     const json = JSON.parse(data);
     const lang = json?.options?.lang || "en";

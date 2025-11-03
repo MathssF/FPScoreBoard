@@ -16,16 +16,12 @@ export interface DatabaseConfig {
   };
 }
 
-/**
- * Função utilitária: lê todo o database.json
- */
 export function getDatabaseConfig(): DatabaseConfig {
   try {
     const filePath = path.join(process.cwd(), "database.json");
     const data = fs.readFileSync(filePath, "utf-8");
     const json = JSON.parse(data);
 
-    // Corrige possíveis erros de digitação na chave "lang"
     const langKey = Object.keys(json.options).find((k) =>
       k.replace(":", "").trim().toLowerCase() === "lang"
     );
@@ -46,7 +42,7 @@ export function getDatabaseConfig(): DatabaseConfig {
       },
     };
   } catch (error) {
-    console.error("Erro ao ler o arquivo database.json:", error);
+    console.error("Error - Read database.json:", error);
 
     return {
       host: "",
@@ -59,9 +55,6 @@ export function getDatabaseConfig(): DatabaseConfig {
   }
 }
 
-/**
- * Fetch 1: Retorna toda a configuração
- */
 export async function fetchDatabaseConfig() {
   try {
     const config = getDatabaseConfig();
@@ -79,9 +72,6 @@ export async function fetchDatabaseConfig() {
   }
 }
 
-/**
- * Fetch 2: Retorna apenas o idioma
- */
 export async function fetchLanguage() {
   try {
     const config = getDatabaseConfig();

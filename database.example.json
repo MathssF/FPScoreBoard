@@ -3,7 +3,7 @@
     "host":"example.host",
     "port":"3306",
     "user":"example",
-    "pass":"example",
+    "pass":"example"
   },
   "needConfig": true,
   "lists": {

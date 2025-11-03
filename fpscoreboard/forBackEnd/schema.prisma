@@ -1,0 +1,101 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Match {
+  id          Int      @id @map("matchid") @default(autoincrement())
+  startTime   DateTime @map("start_time")
+  endTime     DateTime? @map("end_time")
+  winner      String
+  seriesType  String   @map("series_type")
+  team1Name   String
+  team1Score  Int      @default(0)
+  team2Name   String
+  team2Score  Int      @default(0)
+  serverIp    String   @map("server_ip")
+
+  maps        Map[]
+  teams       Team[]
+  playerStats PlayerStats[]
+}
+
+model Map {
+  matchId     Int
+  mapNumber   Int
+  startTime   DateTime @map("start_time")
+  endTime     DateTime? @map("end_time")
+  winner      String
+  mapName     String   @map("mapname")
+  team1Score  Int      @default(0)
+  team2Score  Int      @default(0)
+
+  match       Match    @relation(fields: [matchId], references: [id])
+
+  @@id([matchId, mapNumber])
+}
+
+model Team {
+  id       Int    @id @default(autoincrement()) @map("teamId")
+  name     String @map("teamName")
+  matchId  Int
+  match    Match  @relation(fields: [matchId], references: [id])
+  players  PlayerStats[]
+
+  @@unique([name, matchId])
+}
+
+model Player {
+  steamId64   BigInt  @id
+  name        String?
+  playerStats PlayerStats[]
+}
+
+model PlayerStats {
+  matchId          Int
+  mapNumber        Int
+  steamId64        BigInt
+  teamId           Int
+  kills            Int
+  deaths           Int
+  damage           Int
+  assists          Int
+  enemy5ks         Int
+  enemy4ks         Int
+  enemy3ks         Int
+  enemy2ks         Int
+  utilityCount     Int    @map("utility_count")
+  utilityDamage    Int    @map("utility_damage")
+  utilitySuccesses Int    @map("utility_successes")
+  utilityEnemies   Int    @map("utility_enemies")
+  flashCount       Int    @map("flash_count")
+  flashSuccesses   Int    @map("flash_successes")
+  healthRemoved    Int    @map("health_points_removed_total")
+  healthDealt      Int    @map("health_points_dealt_total")
+  shotsFired       Int    @map("shots_fired_total")
+  shotsOnTarget    Int    @map("shots_on_target_total")
+  v1Count          Int    @map("v1_count")
+  v1Wins           Int    @map("v1_wins")
+  v2Count          Int    @map("v2_count")
+  v2Wins           Int    @map("v2_wins")
+  entryCount       Int    @map("entry_count")
+  entryWins        Int    @map("entry_wins")
+  equipmentValue   Int    @map("equipment_value")
+  moneySaved       Int    @map("money_saved")
+  killReward       Int    @map("kill_reward")
+  liveTime         Int    @map("live_time")
+  headShotKills    Int    @map("head_shot_kills")
+  cashEarned       Int    @map("cash_earned")
+  enemiesFlashed   Int    @map("enemies_flashed")
+
+  match            Match  @relation(fields: [matchId], references: [id])
+  map              Map    @relation(fields: [matchId, mapNumber], references: [matchId, mapNumber])
+  player           Player @relation(fields: [steamId64], references: [steamId64])
+  team             Team   @relation(fields: [teamId], references: [id])
+
+  @@id([matchId, mapNumber, steamId64])
+}

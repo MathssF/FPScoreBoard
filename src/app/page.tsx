@@ -6,7 +6,6 @@ import { useLanguage } from "@/context/lang";
 export default function Home() {
   const { language } = useLanguage();
 
-  // Textos traduzidos
   const translations = {
     pt: {
       title: "FPScoreBoard!",
@@ -26,10 +25,7 @@ export default function Home() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-zinc-900">
-      {/* Componente de bandeiras */}
       <LangFlags />
-
-      {/* Conteúdo principal */}
       <main className="flex flex-col items-center justify-center border border-zinc-700 bg-zinc-200 rounded-xl p-12 text-center shadow-md">
         <h1 className="text-4xl font-bold text-zinc-900 mb-4">{title}</h1>
         <p className="text-lg text-zinc-700 max-w-md">{text}</p>

@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { getDatabaseConfig } from "@/api/config/database";
 
 type Language = "en" | "pt" | "es";
 
@@ -15,10 +14,19 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>("en");
 
-  // Inicializa o idioma do database.json
+  // Busca idioma inicial via API (server → client)
   useEffect(() => {
-    const configLang = getDatabaseConfig().options.lang as Language;
-    setLanguage(configLang);
+    async function loadLang() {
+      try {
+        const res = await fetch("/api/config");
+        const data = await res.json();
+        setLanguage((data.options?.lang || data.lang || "en").toLowerCase());
+      } catch (error) {
+        console.error("Erro ao carregar idioma:", error);
+        setLanguage("en");
+      }
+    }
+    loadLang();
   }, []);
 
   return (
@@ -29,9 +37,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 }
 
 export function useLanguage() {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error("useLanguage deve ser usado dentro de LanguageProvider");
-  }
-  return context;
+  const ctx = useContext(LanguageContext);
+  if (!ctx) throw new Error("useLanguage deve ser usado dentro de LanguageProvider");
+  return ctx;
 }

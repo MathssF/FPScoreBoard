@@ -16,6 +16,9 @@ export interface DatabaseConfig {
   };
 }
 
+/**
+ * Lê e retorna o conteúdo do database.json — usado apenas no servidor
+ */
 export function getDatabaseConfig(): DatabaseConfig {
   try {
     const filePath = path.join(process.cwd(), "database.json");
@@ -37,9 +40,7 @@ export function getDatabaseConfig(): DatabaseConfig {
       user: json.user || "",
       pass: json.pass || "",
       lists: json.lists || { users: [], players: [] },
-      options: {
-        lang: langValue,
-      },
+      options: { lang: langValue },
     };
   } catch (error) {
     console.error("Error - Read database.json:", error);
@@ -55,7 +56,10 @@ export function getDatabaseConfig(): DatabaseConfig {
   }
 }
 
-export async function fetchDatabaseConfig() {
+/**
+ * API Route Handler – Retorna a config inteira
+ */
+export async function GET() {
   try {
     const config = getDatabaseConfig();
     return NextResponse.json(config);
@@ -69,15 +73,5 @@ export async function fetchDatabaseConfig() {
       lists: { users: [], players: [] },
       options: { lang: "en" },
     });
-  }
-}
-
-export async function fetchLanguage() {
-  try {
-    const config = getDatabaseConfig();
-    return NextResponse.json({ lang: config.options.lang });
-  } catch (err) {
-    console.error("Erro ao obter idioma do database.json:", err);
-    return NextResponse.json({ lang: "en" });
   }
 }

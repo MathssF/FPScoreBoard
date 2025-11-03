@@ -8,20 +8,23 @@ export default function Home() {
 
   const translations = {
     pt: {
+      key: "pt",
       title: "FPScoreBoard!",
       text: "Seu painel de visualização de Estatísticas de CS2, usando o MatchZy!",
     },
     en: {
+      key: "en",
       title: "FPScoreBoard!",
       text: "Your CS2 stats visualization dashboard, powered by MatchZy!",
     },
     es: {
+      key: "es",
       title: "FPScoreBoard!",
       text: "Tu panel de visualización de estadísticas de CS2, usando MatchZy!",
     },
   };
 
-  const { title, text } = translations[language] || translations.en;
+  const { title, text } = (translations as Record<string, any>)[language] || translations.en;
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-zinc-900">

@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { NextResponse } from "next/server";
 
 export interface DatabaseConfig {
   host: string;
@@ -16,8 +17,7 @@ export interface DatabaseConfig {
 }
 
 /**
- * Lê e retorna o conteúdo do arquivo database.json
- * Se algo der errado, retorna valores padrão.
+ * Função utilitária: lê todo o database.json
  */
 export function getDatabaseConfig(): DatabaseConfig {
   try {
@@ -56,5 +56,38 @@ export function getDatabaseConfig(): DatabaseConfig {
       lists: { users: [], players: [] },
       options: { lang: "en" },
     };
+  }
+}
+
+/**
+ * Fetch 1: Retorna toda a configuração
+ */
+export async function fetchDatabaseConfig() {
+  try {
+    const config = getDatabaseConfig();
+    return NextResponse.json(config);
+  } catch (err) {
+    console.error("Erro ao obter database config:", err);
+    return NextResponse.json({
+      host: "",
+      port: "3306",
+      user: "",
+      pass: "",
+      lists: { users: [], players: [] },
+      options: { lang: "en" },
+    });
+  }
+}
+
+/**
+ * Fetch 2: Retorna apenas o idioma
+ */
+export async function fetchLanguage() {
+  try {
+    const config = getDatabaseConfig();
+    return NextResponse.json({ lang: config.options.lang });
+  } catch (err) {
+    console.error("Erro ao obter idioma do database.json:", err);
+    return NextResponse.json({ lang: "en" });
   }
 }

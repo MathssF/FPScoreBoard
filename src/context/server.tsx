@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { getDatabaseConfig, DatabaseConfig } from "@/src/api/config/database";
+import { getDatabaseConfig, DatabaseConfig } from "@/api/config/database";
 
 interface DatabaseContextType {
   config: DatabaseConfig;

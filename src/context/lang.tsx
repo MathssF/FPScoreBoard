@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { getDatabaseConfig } from "@/src/api/config/database";
+import { getDatabaseConfig } from "@/api/config/database";
 
 type Language = "en" | "pt" | "es";
 

@@ -1,13 +1,16 @@
 {
-  "host":"",
-  "port":"3306",
-  "user":"",
-  "pass":"",
+  "data": {
+    "host":"",
+    "port":"3306",
+    "user":"",
+    "pass":""
+  },
+  "needConfig": true,
   "lists": {
     "users": [],
     "players": []
   },
   "options": {
-    "lang:": "en"
+    "lang:": "pt"
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import LangFlags from "@/component/LangFlags";
+import LangFlags from "@/component/langFlags";
 import { useLanguage } from "@/context/lang";
 
 export default function Home() {

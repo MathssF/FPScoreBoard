@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 58, "column": 0}, "map": {"version":3,"sources":["file:///workspaces/FPScoreBoard/app/api/config/route.ts"],"sourcesContent":["import { NextResponse } from \"next/server\";\nimport fs from \"fs\";\nimport path from \"path\";\n\nexport async function GET() {\n  try {\n    const filePath = path.join(process.cwd(), \"../../../database.json\");\n    const data = fs.readFileSync(filePath, \"utf-8\");\n    const json = JSON.parse(data);\n    const lang = json?.options?.lang || \"en\";\n\n    return NextResponse.json({ lang });\n  } catch (err) {\n    console.error(\"Erro ao ler o arquivo database.json:\", err);\n    return NextResponse.json({ lang: \"en\" });\n  }\n}\n"],"names":[],"mappings":";;;;AAAA;AACA;AACA;;;;AAEO,eAAe;IACpB,IAAI;QACF,MAAM,WAAW,4GAAI,CAAC,IAAI,CAAC,QAAQ,GAAG,IAAI;QAC1C,MAAM,OAAO,wGAAE,CAAC,YAAY,CAAC,UAAU;QACvC,MAAM,OAAO,KAAK,KAAK,CAAC;QACxB,MAAM,OAAO,MAAM,SAAS,QAAQ;QAEpC,OAAO,gJAAY,CAAC,IAAI,CAAC;YAAE;QAAK;IAClC,EAAE,OAAO,KAAK;QACZ,QAAQ,KAAK,CAAC,wCAAwC;QACtD,OAAO,gJAAY,CAAC,IAAI,CAAC;YAAE,MAAM;QAAK;IACxC;AACF","debugId":null}}]
+}

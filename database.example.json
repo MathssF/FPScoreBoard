@@ -1,0 +1,28 @@
+{
+  "host":"example.host",
+  "port":"3306",
+  "user":"example",
+  "pass":"example",
+  "lists": {
+    "users": [
+      {
+        "name": "example1",
+        "pass": "passExample"
+      },
+      {
+        "name": "example2",
+        "pass": "passExample"
+      },
+      {
+        "name": "example3",
+        "pass": "passExample"
+      }
+    ],
+    "players": [
+      {"steamid64": "1"},
+      {"steamid64": "2"},
+      {"steamid64": "3"},
+      {"steamid64": "4"}
+    ]
+  }
+}

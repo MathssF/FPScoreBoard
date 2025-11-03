@@ -4,7 +4,7 @@ import LangFlags from "@/component/langFlags";
 import { useLanguage } from "@/context/lang";
 
 export default function Home() {
-  const { language } = useLanguage();
+  const { language } = useLanguage() || "en";
 
   const translations = {
     pt: {

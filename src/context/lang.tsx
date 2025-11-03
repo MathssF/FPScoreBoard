@@ -2,17 +2,15 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
-type Language = "en" | "pt" | "es";
-
 interface LanguageContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
+  language: string;
+  setLanguage: (lang: string) => void;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<string>("en");
 
   // Busca idioma inicial via API (server → client)
   useEffect(() => {
@@ -39,5 +37,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 export function useLanguage() {
   const ctx = useContext(LanguageContext);
   if (!ctx) throw new Error("useLanguage deve ser usado dentro de LanguageProvider");
+  
   return ctx;
 }

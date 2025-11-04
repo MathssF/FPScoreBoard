@@ -10,3 +10,12 @@ export default interface Match {
   team2_score: number;
   server_ip: string;
 }
+
+export interface PlayerInMatch {
+
+}
+
+export interface MatchDetails {
+  Players: PlayerInMatch[];
+  totalTime?: string;
+}

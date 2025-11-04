@@ -42,11 +42,32 @@ export interface Player {
   currentName: string;
   oldNames: string[];
   matchs: number[];
+
   totalKills: number;
   totalDeaths: number;
   totalAssists: number;
-  totalDamge: number;
+  totalDamage: number;
   totalKillReward: number;
   totalShotsFired: number;
   totalShotsOnTarget: number;
+
+  averageKDR?: number;
+  averageADR?: number;
+  averageHSPercent?: number;
+  averageAccuracy?: number;
+
+  winRate?: number;
+  totalLiveTime?: number;
+  totalRounds?: number; 
+
+  totalMoneySaved?: number; 
+  totalEquipmentValue?: number;
+  totalUtilityDamage?: number;
+  totalEnemiesFlashed?: number;
+
+  lastMatchId?: number;
+  lastActive?: string;
+  registeredAt?: string; 
+  country?: string;
+  avatarUrl?: string;
 }

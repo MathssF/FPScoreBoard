@@ -1,5 +1,6 @@
 "use client";
 
+import Header from "@/component/header";
 import LangFlags from "@/component/langFlags";
 import { useLanguage } from "@/context/lang";
 
@@ -28,6 +29,7 @@ export default function Home() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-zinc-900">
+      <Header />
       <LangFlags />
       <main className="flex flex-col items-center justify-center border border-zinc-700 bg-zinc-200 rounded-xl p-12 text-center shadow-md">
         <h1 className="text-4xl font-bold text-zinc-900 mb-4">{title}</h1>

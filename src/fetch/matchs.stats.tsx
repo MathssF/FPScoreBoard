@@ -4,9 +4,8 @@ import mysql from "mysql2/promise";
 import type { RowDataPacket } from "mysql2";
 import { NextResponse } from "next/server";
 import type Match from "@/interfaces/matchs";
-import { MatchsStats } from "@/interfaces/matchs";
 
-// Função auxiliar: lê o config.json na raiz
+// Util
 function loadConfig() {
   try {
     const configPath = path.join(process.cwd(), "config.json");
@@ -14,7 +13,7 @@ function loadConfig() {
     const json = JSON.parse(file);
 
     if (!json.data)
-      throw new Error("Config inválido: campo 'data' não encontrado.");
+      throw new Error("Invalid Config: field 'data' not found.");
 
     return {
       host: json.data.host,
@@ -24,17 +23,17 @@ function loadConfig() {
       database: json.data.name,
     };
   } catch (error) {
-    console.error("Erro ao ler config.json:", error);
-    throw new Error("Falha ao ler o arquivo de configuração.");
+    console.error("Error in config.json:", error);
+    throw new Error("File Error: config.json .");
   }
 }
 
-// Função principal do endpoint
+// Main
 export async function GET() {
   try {
     const dbConfig = loadConfig();
 
-    // Conexão MySQL
+    // Connect MySQL
     const connection = await mysql.createConnection({
       host: dbConfig.host,
       port: Number(dbConfig.port),
@@ -78,9 +77,9 @@ export async function GET() {
     return NextResponse.json({ matches });
 
   } catch (error) {
-    console.error("Erro ao buscar partidas:", error);
+    console.error("Error: Matchs not found: ", error);
     return NextResponse.json(
-      { matches: [], error: "Erro ao buscar partidas" },
+      { matches: [], error: "Error: Matchs not found" },
       { status: 500 }
     );
   }

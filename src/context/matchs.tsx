@@ -15,25 +15,10 @@ const MatchContext = createContext<MatchContextType | undefined>(undefined);
 export function MatchProvider({ children }: { children: ReactNode }) {
   const [matches, setMatches] = useState<Match[]>([]);
 
-  // Função que busca os dados do "banco"
   
   async function fetchMatches() {
     GET();
-
-    /*
-    try {
-      const res = await fetch("/api/matchs"); // endpoint que criaremos depois
-      const data = await res.json();
-      setMatches(data.matches || []);
-    } catch (error) {
-      console.error("Erro ao carregar partidas:", error);
-      setMatches([]);
-    }
-    */
   }
-  
-
-
 
   useEffect(() => {
   fetchMatches();

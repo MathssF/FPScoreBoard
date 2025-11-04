@@ -16,9 +16,6 @@ export interface DatabaseConfig {
   };
 }
 
-/**
- * Lê e retorna o conteúdo do database.json — usado apenas no servidor
- */
 export function getDatabaseConfig(): DatabaseConfig {
   try {
     const filePath = path.join(process.cwd(), "config.json");
@@ -43,7 +40,7 @@ export function getDatabaseConfig(): DatabaseConfig {
       options: { lang: langValue },
     };
   } catch (error) {
-    console.error("Error - Read database.json:", error);
+    console.error("Error - Read config.json:", error);
 
     return {
       host: "",
@@ -57,7 +54,7 @@ export function getDatabaseConfig(): DatabaseConfig {
 }
 
 /**
- * API Route Handler – Retorna a config inteira
+ * API Route Handler
  */
 export async function GET() {
   try {

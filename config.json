@@ -1,9 +1,9 @@
 {
   "data": {
-    "host":"cs.ntpt.com.br",
+    "host":"",
     "port":"3306",
-    "user":"ntpt-readonly",
-    "pass":"WBcSbyz3MHsr"
+    "user":"",
+    "pass":""
   },
   "needConfig": true,
   "lists": {

@@ -3,9 +3,10 @@
     "host":"cs.ntpt.com.br",
     "port":"3306",
     "user":"ntpt-readonly",
-    "pass":"WBcSbyz3MHsr"
+    "pass":"WBcSbyz3MHsr",
+    "name": "ntpt"
   },
-  "needConfig": true,
+  "needConfig": false,
   "lists": {
     "users": [],
     "players": []

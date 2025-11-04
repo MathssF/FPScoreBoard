@@ -104,22 +104,15 @@ export function matchDetails(
     }
   }
 
-  const playersInMatch: PlayerInMatch[] = Array.from(playerMap.values()).map((p) => ({
-    ...p,
-    kdr: p.deaths > 0 ? p.kills / p.deaths : p.kills,
-    adr: p.damage,
-    accuracy: p.shots_fired_total > 0 ? p.shots_on_target_total / p.shots_fired_total : 0,
-    entry_success_rate: p.entry_count > 0 ? p.entry_wins / p.entry_count : 0,
-  }));
+  const playersInMatch: PlayerInMatch[] = Array.from(playerMap.values());
 
   const details: MatchDetails = {
-    ...match,
+    Players: playersInMatch,
     maps: mapList,
-    players: playersInMatch,
-    totalTime: match.end_time && match.start_time
-      ? calcDuration(match.start_time, match.end_time)
-      : undefined,
-    totalRounds: mapList.length * 30, 
+    totalTime:
+      match.end_time && match.start_time
+        ? calcDuration(match.start_time, match.end_time)
+        : undefined,
     playerCount: playersInMatch.length,
   };
 

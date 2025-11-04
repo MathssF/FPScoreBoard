@@ -9,6 +9,8 @@ export default function MatchsStatsPage() {
   const { matches } = useMatch();
   const router = useRouter();
 
+  console.log('Matches: ', matches);
+
   if (!matches || matches.length === 0) {
     return (
       <div className="p-8 text-center text-zinc-400">

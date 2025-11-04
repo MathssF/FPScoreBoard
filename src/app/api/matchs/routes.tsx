@@ -7,13 +7,29 @@ import type Match from "@/interfaces/matchs";
 
 // Util
 function loadConfig() {
+  console.log('Entrou na API');
   try {
+    console.log('Entrou no try');
+    
     const configPath = path.join(process.cwd(), "config.json");
+    
+    console.log('Na API, configPath: ', configPath);
+
     const file = fs.readFileSync(configPath, "utf-8");
+
+    console.log('Na API, file: ', file);
+
     const json = JSON.parse(file);
 
-    if (!json.data)
+    console.log('Na API, json: ', json);
+    
+
+    if (!json.data) {
       throw new Error("Invalid Config: field 'data' not found.");
+    }
+
+
+    console.log('Na API, json.data: ', json.data);
 
     return {
       host: json.data.host,

@@ -18,9 +18,19 @@ export function MatchProvider({ children }: { children: ReactNode }) {
 
   
   async function fetchMatches() {
+
+    console.log('Entrou na função');
+
     try {
-      const res = await fetch("/api/matchs", { cache: "no-store" });
+
+      console.log('Entrou no Try do Context')
+
+      const res = await fetch("/api/matchs", { cache: "no-store" }); // ChatGPT, o Erro ta aqui
+      console.log('Res do context: ', res); 
       const data = await res.json();
+
+      console.log('Data do context: ', data); 
+
       setCheckM(true);
       setMatches(data.matches || []);
     } catch (error) {
@@ -31,12 +41,16 @@ export function MatchProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  console.log('Na função, no meio');
+
   useEffect(() => {
   fetchMatches();
   }, []);
 
+  console.log('No contexto, Matches> ', matches, ' e checked: ', checkM);
+
   return (
-    <MatchContext.Provider value={{ matches, fetchMatches, checkM }}> /*checked, fetchMatches*/
+    <MatchContext.Provider value={{ matches, fetchMatches, checkM }}>
       {children}
     </MatchContext.Provider>
   );

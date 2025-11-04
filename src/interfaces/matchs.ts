@@ -1,3 +1,5 @@
+import MapStats from "./maps";
+
 export default interface Match {
   matchid: number;
   start_time: string;
@@ -56,5 +58,7 @@ export interface PlayerInMatch {
 
 export interface MatchDetails {
   Players: PlayerInMatch[];
+  maps?: MapStats[];
   totalTime?: string;
+  playerCount?: number;
 }

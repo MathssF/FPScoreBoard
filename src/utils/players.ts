@@ -7,6 +7,10 @@ export function selectMatch(matches: Match[], id: number): Match | undefined {
   })
 }
 
-export function matchDetails(match: Match, players: PlayerMatch) { // : MatchDetails {
+export function matchDetails(match: Match, players: PlayerMatch[]) { // : MatchDetails {
+  const { matchid } = match;
+  const list = players.map((elem) => {
+    elem.matchid === matchid;
+  })
   
 }

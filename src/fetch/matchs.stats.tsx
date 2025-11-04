@@ -60,21 +60,6 @@ export async function GET() {
 
     const [rows] = await connection.execute<RowDataPacket[]>(query);
 
-    /* const [rows] = await connection.execute<Match[]>(
-      `SELECT 
-        matchid,
-        start_time,
-        end_time,
-        winner,
-        series_type,
-        team1_name,
-        team1_score,
-        team2_name,
-        team2_score,
-        server_ip
-      FROM matchzy_stats_matches`
-    ); */
-
     await connection.end();
 
     const matches: Match[] = (rows as RowDataPacket[]).map((r: any) => ({
@@ -90,7 +75,6 @@ export async function GET() {
       server_ip: String(r.server_ip),
     }));
 
-    // return NextResponse.json({ matches: rows });
     return NextResponse.json({ matches });
 
   } catch (error) {

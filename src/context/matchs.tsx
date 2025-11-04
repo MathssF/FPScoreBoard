@@ -1,8 +1,9 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import Match from "@/interfaces/matchs";
 
-interface Match {
+/* interface Match {
   matchid: number;
   start_time: string;
   end_time?: string | null;
@@ -13,7 +14,7 @@ interface Match {
   team2_name: string;
   team2_score: number;
   server_ip: string;
-}
+} */
 
 interface MatchContextType {
   matches: Match[];

@@ -18,7 +18,6 @@ export function MatchProvider({ children }: { children: ReactNode }) {
 
   
   async function fetchMatches() {
-    // GET();
     try {
       const res = await fetch("/api/matchs", { cache: "no-store" });
       const data = await res.json();

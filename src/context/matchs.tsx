@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import Match from "@/interfaces/matchs";
+import { MatchDetails } from "@/interfaces/matchs";
 import { setupFsCheck } from "next/dist/server/lib/router-utils/filesystem";
 
 interface MatchContextType {
@@ -15,6 +16,10 @@ const MatchContext = createContext<MatchContextType | undefined>(undefined);
 export function MatchProvider({ children }: { children: ReactNode }) {
   const [matches, setMatches] = useState<Match[]>([]);
   const [checkM, setCheckM] = useState<boolean>(false);
+  const [matchId, setMatchId] = useState<Match | null>(null);
+
+  const [allMatchsDetails, setAllMatchsDetails] = useState<MatchDetails[]>([])
+  const [matchDetail, setMatchDetail] = useState<MatchDetails | null>(null);
 
   
   async function fetchMatches() {

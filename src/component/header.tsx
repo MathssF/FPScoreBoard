@@ -9,21 +9,18 @@ export default function Header() {
   const translations = {
     pt: {
       home: "Início",
-      about: "Sobre",
-      contact: "Contato",
       match: "Partidas",
+      players: "Jogadores",
     },
     en: {
       home: "Home",
-      about: "About",
-      contact: "Contact",
       match: "Matchs",
+      players: "Players",
     },
     es: {
       home: "Inicio",
-      about: "Acerca de",
-      contact: "Contacto",
       match: "Juegos",
+      players: "Jogadores",
     },
   };
 
@@ -40,11 +37,11 @@ export default function Header() {
           <Link href="/" className="hover:text-zinc-300 transition-colors">
             {t.home}
           </Link>
-          <Link href="/about" className="hover:text-zinc-300 transition-colors">
-            {t.about}
+          <Link href="/matchs/stats" className="hover:text-zinc-300 transition-colors">
+            {t.match}
           </Link>
-          <Link href="/contact" className="hover:text-zinc-300 transition-colors">
-            {t.contact}
+          <Link href="/players" className="hover:text-zinc-300 transition-colors">
+            {t.players}
           </Link>
         </nav>
       </div>

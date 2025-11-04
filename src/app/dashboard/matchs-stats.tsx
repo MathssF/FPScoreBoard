@@ -1,5 +1,7 @@
 "use client";
 
+import Header from "@/component/header";
+import LangFlags from "@/component/langFlags";
 import { useMatch } from "@/context/matchs";
 import { useRouter } from "next/navigation";
 
@@ -17,6 +19,8 @@ export default function MatchsStatsPage() {
 
   return (
     <div className="p-8">
+      <Header />
+      <LangFlags />
       <h1 className="text-3xl font-bold text-zinc-100 mb-6">Partidas Registradas</h1>
       <div className="space-y-4">
         {matches.map((match) => (

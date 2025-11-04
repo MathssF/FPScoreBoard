@@ -11,16 +11,19 @@ export default function Header() {
       home: "Início",
       about: "Sobre",
       contact: "Contato",
+      match: "Partidas",
     },
     en: {
       home: "Home",
       about: "About",
       contact: "Contact",
+      match: "Matchs",
     },
     es: {
       home: "Inicio",
       about: "Acerca de",
       contact: "Contacto",
+      match: "Juegos",
     },
   };
 

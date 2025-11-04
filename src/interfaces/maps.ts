@@ -1,12 +1,10 @@
-export default interface Match {
+export default interface MapStats {
   matchid: number;
+  mapnumber: number;
   start_time: string;
   end_time?: string | null;
   winner: string;
-  series_type: string;
-  team1_name: string;
+  mapname: string;
   team1_score: number;
-  team2_name: string;
   team2_score: number;
-  server_ip: string;
 }

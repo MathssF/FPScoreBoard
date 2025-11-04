@@ -59,7 +59,7 @@ export async function GET() {
     `;
 
     const [rows] = await connection.execute<RowDataPacket[]>(query);
-    
+
     /* const [rows] = await connection.execute<Match[]>(
       `SELECT 
         matchid,
@@ -77,7 +77,22 @@ export async function GET() {
 
     await connection.end();
 
-    return NextResponse.json({ matches: rows });
+    const matches: Match[] = (rows as RowDataPacket[]).map((r: any) => ({
+      matchid: Number(r.matchid),
+      start_time: String(r.start_time),
+      end_time: r.end_time ? String(r.end_time) : null,
+      winner: String(r.winner),
+      series_type: String(r.series_type),
+      team1_name: String(r.team1_name),
+      team1_score: Number(r.team1_score),
+      team2_name: String(r.team2_name),
+      team2_score: Number(r.team2_score),
+      server_ip: String(r.server_ip),
+    }));
+
+    // return NextResponse.json({ matches: rows });
+    return NextResponse.json({ matches });
+
   } catch (error) {
     console.error("Erro ao buscar partidas:", error);
     return NextResponse.json(

@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import Match from "@/interfaces/matchs";
+import { GET } from "@/fetch/matchs.stats";
 
 interface MatchContextType {
   matches: Match[];
@@ -15,7 +16,11 @@ export function MatchProvider({ children }: { children: ReactNode }) {
   const [matches, setMatches] = useState<Match[]>([]);
 
   // Função que busca os dados do "banco"
+  
   async function fetchMatches() {
+    GET();
+
+    /*
     try {
       const res = await fetch("/api/matchs"); // endpoint que criaremos depois
       const data = await res.json();
@@ -24,10 +29,14 @@ export function MatchProvider({ children }: { children: ReactNode }) {
       console.error("Erro ao carregar partidas:", error);
       setMatches([]);
     }
+    */
   }
+  
+
+
 
   useEffect(() => {
-    fetchMatches();
+  fetchMatches();
   }, []);
 
   return (

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import Match from "@/interfaces/matchs";
-import { GET } from "@/fetch/matchs.stats";
+import { GET } from "@/api/matchs/routes";
 
 interface MatchContextType {
   matches: Match[];

@@ -21,7 +21,7 @@ export interface DatabaseConfig {
  */
 export function getDatabaseConfig(): DatabaseConfig {
   try {
-    const filePath = path.join(process.cwd(), "database.json");
+    const filePath = path.join(process.cwd(), "config.json");
     const data = fs.readFileSync(filePath, "utf-8");
     const json = JSON.parse(data);
 

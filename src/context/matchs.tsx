@@ -3,21 +3,9 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import Match from "@/interfaces/matchs";
 
-/* interface Match {
-  matchid: number;
-  start_time: string;
-  end_time?: string | null;
-  winner: string;
-  series_type: string;
-  team1_name: string;
-  team1_score: number;
-  team2_name: string;
-  team2_score: number;
-  server_ip: string;
-} */
-
 interface MatchContextType {
   matches: Match[];
+  // checked: boolean;
   fetchMatches: () => Promise<void>;
 }
 
@@ -43,7 +31,7 @@ export function MatchProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <MatchContext.Provider value={{ matches, fetchMatches }}>
+    <MatchContext.Provider value={{ matches, fetchMatches }}> /*checked, fetchMatches*/
       {children}
     </MatchContext.Provider>
   );

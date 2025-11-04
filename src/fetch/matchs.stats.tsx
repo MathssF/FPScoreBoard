@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import mysql from "mysql2/promise";
+import type { RowDataPacket } from "mysql2";
 import { NextResponse } from "next/server";
 import type Match from "@/interfaces/matchs";
 import { MatchsStats } from "@/interfaces/matchs";
@@ -42,7 +43,24 @@ export async function GET() {
       database: dbConfig.database,
     });
 
-    const [rows] = await connection.execute<Match[]>(
+    const query = `
+      SELECT
+        matchid,
+        start_time,
+        end_time,
+        winner,
+        series_type,
+        team1_name,
+        team1_score,
+        team2_name,
+        team2_score,
+        server_ip
+      FROM matchzy_stats_matches
+    `;
+
+    const [rows] = await connection.execute<RowDataPacket[]>(query);
+    
+    /* const [rows] = await connection.execute<Match[]>(
       `SELECT 
         matchid,
         start_time,
@@ -55,7 +73,7 @@ export async function GET() {
         team2_score,
         server_ip
       FROM matchzy_stats_matches`
-    );
+    ); */
 
     await connection.end();
 

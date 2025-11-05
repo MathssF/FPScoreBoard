@@ -11,13 +11,11 @@ export default function PlayerDetailsPage() {
   const { players, playerMatches, checkP } = usePlayers();
   const router = useRouter();
 
-  // Procurar o jogador com base no steamid
   const player = useMemo(() => {
     const id = Number(steamid);
     return players.find((p) => p.steamid64 === id);
   }, [players, steamid]);
 
-  // Filtra todas as partidas deste jogador
   const matches = useMemo(() => {
     if (!player) return [];
     return playerMatches.filter((m) => m.steamid64 === player.steamid64);

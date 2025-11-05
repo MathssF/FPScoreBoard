@@ -3,6 +3,9 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import Match from "@/interfaces/matchs";
 import { MatchDetails } from "@/interfaces/matchs";
+import { makeMatchDetails } from "@/utils/matchs";
+import PlayerMatch from "@/interfaces/players";
+import MapStats from "@/interfaces/maps";
 
 interface MatchContextType {
   matches: Match[];
@@ -20,6 +23,17 @@ export function MatchProvider({ children }: { children: ReactNode }) {
   const [allMatchsDetails, setAllMatchsDetails] = useState<MatchDetails[]>([])
   const [matchDetail, setMatchDetail] = useState<MatchDetails | null>(null);
 
+  async function makeDetails(
+    match: Match[],
+    players: PlayerMatch[],
+    maps: MapStats[]
+  ) {
+    const list = match.map((elem) => {
+      makeMatchDetails(elem, players, maps);
+    })
+    return list;
+  }
+
   
   async function fetchMatches() {
     try {
@@ -27,6 +41,7 @@ export function MatchProvider({ children }: { children: ReactNode }) {
       const data = await res.json();
       setCheckM(true);
       setMatches(data.matches || []);
+      // setAllMatchsDetails(makeDetails(data.matches, )
     } catch (error) {
       console.error("Error: Matchs not found:", error);
       setCheckM(true);

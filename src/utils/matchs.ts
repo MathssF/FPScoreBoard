@@ -6,7 +6,7 @@ export function selectMatch(matches: Match[], id: number): Match | undefined {
   return matches.find((elem) => elem.matchid === id);
 }
 
-export function matchDetails(
+export function makeMatchDetails(
   match: Match,
   players: PlayerMatch[],
   maps: MapStats[]

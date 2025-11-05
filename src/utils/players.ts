@@ -1,6 +1,5 @@
 import PlayerMatch, { Player } from "@/interfaces/players";
 import Match from "@/interfaces/matchs";
-import { match } from "assert";
 
 export function generatePlayerStats(playerMatches: PlayerMatch[], steamid64: number): Player | undefined {
   const matches = playerMatches.filter((p) => p.steamid64 === steamid64);

@@ -3,7 +3,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import Match from "@/interfaces/matchs";
 import { MatchDetails } from "@/interfaces/matchs";
-import { setupFsCheck } from "next/dist/server/lib/router-utils/filesystem";
 
 interface MatchContextType {
   matches: Match[];

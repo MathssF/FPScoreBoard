@@ -10,7 +10,6 @@ export default function PlayersMatchesPage() {
   const [matchFilter, setMatchFilter] = useState("");
   const router = useRouter();
 
-  // Filtragem dos dados
   const filteredMatches = useMemo(() => {
     return playerMatches.filter((pm) => {
       const matchByPlayer =

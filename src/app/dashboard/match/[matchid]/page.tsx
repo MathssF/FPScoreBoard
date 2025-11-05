@@ -7,7 +7,7 @@ import { useMaps } from "@/context/maps";
 import { makeMatchDetails } from "@/utils/matchs";
 import { useEffect, useState } from "react";
 
-import type { MatchDetails } from "@/interfaces/matchs";
+import type { MatchDetails, PlayerInMatch } from "@/interfaces/matchs";
 import type Match from "@/interfaces/matchs";
 import type PlayerMatch from "@/interfaces/players";
 import type MapStats from "@/interfaces/maps";
@@ -50,13 +50,17 @@ export default function MatchDetailsPage() {
   }
 
   // const { match, players, maps: mapsInMatch } = matchDetail;
+  /*
   const { maps: mapsInMatch } = matchDetail;
   const match = matches.find((elem) => {
     elem.matchid === slug;
   })
   const players = playerMatches.map((elem) => {
     elem.matchid === slug;
-  })
+  }) */
+  const mapsInMatch = matchDetail.maps || [];
+  const players = matchDetail.Players || [];
+  const match = matchDetail;
 
   return (
     <div className="p-6 space-y-6">

@@ -1,4 +1,6 @@
 import PlayerMatch, { Player } from "@/interfaces/players";
+import Match from "@/interfaces/matchs";
+import { match } from "assert";
 
 export function generatePlayerStats(playerMatches: PlayerMatch[], steamid64: number): Player | undefined {
   const matches = playerMatches.filter((p) => p.steamid64 === steamid64);
@@ -62,13 +64,32 @@ export function generatePlayerStats(playerMatches: PlayerMatch[], steamid64: num
     totalEnemiesFlashed,
 
     lastMatchId: matches[matches.length - 1].matchid,
-    lastActive: new Date().toISOString(),
-    registeredAt: matches[0]?.matchid ? undefined : new Date().toISOString(),
+    lastActive: '',
+    registeredAt: '',
     country: undefined,
     avatarUrl: undefined,
   };
 
   return player;
+}
+
+export function setTimeData(matchs: Match[], player: Player) {
+  const lastMatch = matchs.find((elem) => {
+    elem.matchid === player.lastMatchId;
+  });
+  if (!lastMatch) {
+    player.lastActive = '';
+  } else {
+    player.lastActive = lastMatch.end_time ? lastMatch?.end_time : lastMatch?.start_time;
+  }
+  const registre = matchs.find((elem) => {
+    elem.matchid === player.matchs[0];
+  })
+  if (!registre) {
+    player.registeredAt = '';
+  } else {
+    player.registeredAt = registre.start_time;
+  }
 }
 
 function sum(values: number[]): number {

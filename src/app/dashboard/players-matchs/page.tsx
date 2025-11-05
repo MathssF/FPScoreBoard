@@ -3,6 +3,8 @@
 import { useState, useMemo } from "react";
 import { usePlayers } from "@/context/players";
 import { useRouter } from "next/navigation";
+import Header from "@/component/header";
+import LangFlags from "@/component/langFlags";
 
 export default function PlayersMatchesPage() {
   const { playerMatches, checkP } = usePlayers();
@@ -26,6 +28,8 @@ export default function PlayersMatchesPage() {
   if (!checkP) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-zinc-900 text-zinc-100">
+        <Header />
+        <LangFlags />
         <p>Carregando dados dos jogadores...</p>
       </div>
     );
@@ -33,6 +37,9 @@ export default function PlayersMatchesPage() {
 
   return (
     <div className="min-h-screen bg-zinc-900 text-zinc-100 p-8">
+
+      <Header />
+      <LangFlags />
       <h1 className="text-3xl font-bold mb-6 text-center">Histórico de Players & Partidas</h1>
 
       {/* Filtros */}

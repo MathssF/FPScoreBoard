@@ -43,7 +43,7 @@ export default function MatchDetailsPage() {
   }, [checkM, checkP, checkMaps, matches, playerMatches, maps, matchid]);
 
   if (!checkM || !checkP || !checkMaps) {
-    return <p className="text-zinc-400 p-4">Carregando dados...</p>;
+    return <div><Header /><LangFlags /><p className="text-zinc-400 p-4">Carregando dados...</p></div>
   }
 
   if (!matchDetail) {

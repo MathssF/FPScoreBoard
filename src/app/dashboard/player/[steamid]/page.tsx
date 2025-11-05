@@ -3,6 +3,8 @@
 import { useParams, useRouter } from "next/navigation";
 import { usePlayers } from "@/context/players";
 import { useMemo } from "react";
+import Header from "@/component/header";
+import LangFlags from "@/component/langFlags";
 
 export default function PlayerDetailsPage() {
   const { steamid } = useParams<{ steamid: string }>();
@@ -24,6 +26,8 @@ export default function PlayerDetailsPage() {
   if (!checkP) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-zinc-900 text-zinc-100">
+        <Header />
+        <LangFlags />
         <p>Carregando informações do jogador...</p>
       </div>
     );
@@ -32,6 +36,8 @@ export default function PlayerDetailsPage() {
   if (!player) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-zinc-100">
+        <Header />
+        <LangFlags />
         <h1 className="text-2xl font-bold mb-4">Jogador não encontrado</h1>
         <button
           onClick={() => router.push("/dashboard/players-matchs")}
@@ -45,6 +51,8 @@ export default function PlayerDetailsPage() {
 
   return (
     <div className="min-h-screen bg-zinc-900 text-zinc-100 p-8">
+      <Header />
+      <LangFlags />
       <button
         onClick={() => router.push("/dashboard/players-matchs")}
         className="mb-6 text-blue-400 hover:underline"

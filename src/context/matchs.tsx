@@ -32,6 +32,7 @@ export function MatchProvider({ children }: { children: ReactNode }) {
       makeMatchDetails(elem, players, maps);
     })
     return list;
+    // setAllMatchsDetails(makeDetails(matchs, players, maps);
   }
 
   
@@ -41,7 +42,6 @@ export function MatchProvider({ children }: { children: ReactNode }) {
       const data = await res.json();
       setCheckM(true);
       setMatches(data.matches || []);
-      // setAllMatchsDetails(makeDetails(data.matches, )
     } catch (error) {
       console.error("Error: Matchs not found:", error);
       setCheckM(true);

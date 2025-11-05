@@ -11,6 +11,7 @@ import type { MatchDetails } from "@/interfaces/matchs";
 import type Match from "@/interfaces/matchs";
 import type PlayerMatch from "@/interfaces/players";
 import type MapStats from "@/interfaces/maps";
+import MatchsStatsPage from "../../matchs-stats/page";
 
 export default function MatchDetailsPage() {
   const { matchid } = useParams();
@@ -48,7 +49,14 @@ export default function MatchDetailsPage() {
     );
   }
 
-  const { match, players, maps: mapsInMatch } = matchDetail;
+  // const { match, players, maps: mapsInMatch } = matchDetail;
+  const { maps: mapsInMatch } = matchDetail;
+  const match = matches.find((elem) => {
+    elem.matchid === slug;
+  })
+  const players = playerMatches.map((elem) => {
+    elem.matchid === slug;
+  })
 
   return (
     <div className="p-6 space-y-6">

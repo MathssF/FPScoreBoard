@@ -14,7 +14,7 @@ import type MapStats from "@/interfaces/maps";
 import MatchsStatsPage from "../../matchs-stats/page";
 
 export default function MatchDetailsPage() {
-  const { matchid } = useParams();
+  const { matchid } = useParams<{ matchid: string }>();
   const { matches, checkM } = useMatch();
   const { playerMatches, checkP } = usePlayers();
   const { maps, checkMaps } = useMaps();
@@ -50,17 +50,22 @@ export default function MatchDetailsPage() {
   }
 
   // const { match, players, maps: mapsInMatch } = matchDetail;
-  /*
   const { maps: mapsInMatch } = matchDetail;
   const match = matches.find((elem) => {
-    elem.matchid === slug;
+    elem.matchid === Number(matchid);
   })
-  const players = playerMatches.map((elem) => {
-    elem.matchid === slug;
-  }) */
-  const mapsInMatch = matchDetail.maps || [];
-  const players = matchDetail.Players || [];
-  const match = matchDetail;
+  const players: PlayerMatch[] = playerMatches.map((elem) => {
+    elem.matchid === Number(matchid);
+  })
+  // const mapsInMatch = matchDetail.maps || [];
+  // const players = matchDetail.Players || [];
+  // const match = matches.;
+
+  if (!match) {
+    return (
+      <p>Partida não encontrada</p>
+    )
+  }
 
   return (
     <div className="p-6 space-y-6">

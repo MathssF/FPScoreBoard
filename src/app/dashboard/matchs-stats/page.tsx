@@ -26,7 +26,7 @@ export default function MatchsStatsPage() {
         {matches.map((match) => (
           <div
             key={match.matchid}
-            onClick={() => router.push(`/dashboard/matchs/${match.matchid}`)}
+            onClick={() => router.push(`/dashboard/match/${match.matchid}`)}
             className="cursor-pointer bg-zinc-800 hover:bg-zinc-700 transition-colors rounded-lg p-4 border border-zinc-700"
           >
             <div className="flex justify-between items-center">

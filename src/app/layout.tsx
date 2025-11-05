@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { MatchProvider } from "@/context/matchs";
 import { LanguageProvider } from "@/context/lang";
 import { PlayerProvider } from "@/context/players";
+import { MapsProvider } from "@/context/maps";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={inter.className}>
         <LanguageProvider>
           <MatchProvider>
-            <PlayerProvider>
-              {children}
-            </PlayerProvider>
+            <MapsProvider>
+              <PlayerProvider>
+                {children}
+              </PlayerProvider>
+            </MapsProvider>
           </MatchProvider>
         </LanguageProvider>
       </body>

@@ -12,6 +12,8 @@ import type Match from "@/interfaces/matchs";
 import type PlayerMatch from "@/interfaces/players";
 import type MapStats from "@/interfaces/maps";
 import MatchsStatsPage from "../../matchs-stats/page";
+import LangFlags from "@/component/langFlags";
+import Header from "@/component/header";
 
 export default function MatchDetailsPage() {
   const { matchid } = useParams<{ matchid: string }>();
@@ -19,9 +21,12 @@ export default function MatchDetailsPage() {
   const { playerMatches, checkP } = usePlayers();
   const { maps, checkMaps } = useMaps();
 
+  console.log('Player Matches: ', playerMatches);
+  console.log('Maps: ', maps);
+  console.log('Matches: ', matches);
+
   const [matchDetail, setMatchDetail] = useState<MatchDetails | null>(null);
 
-  // Carrega os detalhes da partida quando todos os dados estiverem disponíveis
   useEffect(() => {
     if (!checkM || !checkP || !checkMaps) return;
 
@@ -44,20 +49,12 @@ export default function MatchDetailsPage() {
   if (!matchDetail) {
     return (
       <div className="p-6">
+          <Header />
+          <LangFlags />
         <h1 className="text-xl font-semibold text-red-400">Partida não encontrada</h1>
       </div>
     );
   }
-
-  /*
-  const { maps: mapsInMatch } = matchDetail;
-  const match = matches.find((elem) => {
-    elem.matchid === Number(matchid);
-  })
-  const players: PlayerMatch[] = playerMatches.map((elem) => {
-    elem.matchid === Number(matchid);
-  })
-  */
 
   const slug = Number(matchid);
   const mapsInMatch = matchDetail.maps || [];
@@ -66,12 +63,18 @@ export default function MatchDetailsPage() {
 
   if (!match) {
     return (
-      <p>Partida não encontrada</p>
+      <div className="p-6">        
+        <Header />
+        <LangFlags />
+        <p>Partida não encontrada</p>
+      </div>
     )
   }
 
   return (
     <div className="p-6 space-y-6">
+        <Header />
+        <LangFlags />
       <header className="border-b border-zinc-700 pb-4">
         <h1 className="text-2xl font-bold text-white">
           Partida #{match.matchid} — {match.team1_name} vs {match.team2_name}

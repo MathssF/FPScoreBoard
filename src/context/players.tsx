@@ -23,7 +23,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
   async function fetchPlayers() {
     try {
-      const res = await fetch("/api/players", { cache: "no-store" });
+      const res = await fetch("/api/player-matches", { cache: "no-store" });
       if (!res.ok) throw new Error(`Erro ao buscar players: ${res.statusText}`);
 
       const data = await res.json();

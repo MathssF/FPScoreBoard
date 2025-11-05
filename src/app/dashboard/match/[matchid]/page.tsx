@@ -49,7 +49,7 @@ export default function MatchDetailsPage() {
     );
   }
 
-  // const { match, players, maps: mapsInMatch } = matchDetail;
+  /*
   const { maps: mapsInMatch } = matchDetail;
   const match = matches.find((elem) => {
     elem.matchid === Number(matchid);
@@ -57,9 +57,12 @@ export default function MatchDetailsPage() {
   const players: PlayerMatch[] = playerMatches.map((elem) => {
     elem.matchid === Number(matchid);
   })
-  // const mapsInMatch = matchDetail.maps || [];
-  // const players = matchDetail.Players || [];
-  // const match = matches.;
+  */
+
+  const slug = Number(matchid);
+  const mapsInMatch = matchDetail.maps || [];
+  const match = matches.find((elem) => elem.matchid === slug) as Match | undefined;
+  const players: PlayerMatch[] = playerMatches.filter((elem) => elem.matchid === slug);
 
   if (!match) {
     return (

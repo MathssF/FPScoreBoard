@@ -17,40 +17,39 @@ export interface DatabaseConfig {
 }
 
 export function getDatabaseConfig(): DatabaseConfig {
+  let json: any = {};
+
+  // 1️⃣ Tenta ler config.json (fallback)
   try {
     const filePath = path.join(process.cwd(), "config.json");
     const data = fs.readFileSync(filePath, "utf-8");
-    const json = JSON.parse(data);
+    json = JSON.parse(data);
+  } catch (error) {
+    console.warn("config.json não encontrado, usando apenas .env");
+  }
 
-    const langKey = Object.keys(json.options).find((k) =>
-      k.replace(":", "").trim().toLowerCase() === "lang"
+  // 2️⃣ Resolver idioma (env → json → default)
+  const jsonLangKey =
+    json.options &&
+    Object.keys(json.options).find(
+      (k) => k.replace(":", "").trim().toLowerCase() === "lang"
     );
 
-    const langValue =
-      langKey && json.options[langKey]
-        ? json.options[langKey].toLowerCase()
-        : "en";
+  const lang =
+    process.env.APP_LANG ||
+    (jsonLangKey ? json.options[jsonLangKey] : null) ||
+    "en";
 
-    return {
-      host: json.host || "",
-      port: json.port || "3306",
-      user: json.user || "",
-      pass: json.pass || "",
-      lists: json.lists || { users: [], players: [] },
-      options: { lang: langValue },
-    };
-  } catch (error) {
-    console.error("Error - Read config.json:", error);
-
-    return {
-      host: "",
-      port: "3306",
-      user: "",
-      pass: "",
-      lists: { users: [], players: [] },
-      options: { lang: "en" },
-    };
-  }
+  return {
+    host: process.env.DB_HOST || json.data?.host || "",
+    port: process.env.DB_PORT || json.data?.port || "3306",
+    user: process.env.DB_USER || json.data?.user || "",
+    pass: process.env.DB_PASS || json.data?.pass || "",
+    lists: json.lists || { users: [], players: [] },
+    options: {
+      lang: lang.toLowerCase(),
+    },
+  };
 }
 
 /**
@@ -62,6 +61,7 @@ export async function GET() {
     return NextResponse.json(config);
   } catch (err) {
     console.error("Erro ao obter database config:", err);
+
     return NextResponse.json({
       host: "",
       port: "3306",

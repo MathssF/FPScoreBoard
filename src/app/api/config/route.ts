@@ -19,7 +19,6 @@ export interface DatabaseConfig {
 export function getDatabaseConfig(): DatabaseConfig {
   let json: any = {};
 
-  // 1️⃣ Tenta ler config.json (fallback)
   try {
     const filePath = path.join(process.cwd(), "config.json");
     const data = fs.readFileSync(filePath, "utf-8");
@@ -28,7 +27,6 @@ export function getDatabaseConfig(): DatabaseConfig {
     console.warn("config.json não encontrado, usando apenas .env");
   }
 
-  // 2️⃣ Resolver idioma (env → json → default)
   const jsonLangKey =
     json.options &&
     Object.keys(json.options).find(

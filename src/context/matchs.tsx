@@ -32,13 +32,12 @@ export function MatchProvider({ children }: { children: ReactNode }) {
       makeMatchDetails(elem, players, maps);
     })
     return list;
-    // setAllMatchsDetails(makeDetails(matchs, players, maps);
   }
 
   
   async function fetchMatches() {
     try {
-      const res = await fetch("/api/matchs", { cache: "no-store" }); // ChatGPT, o Erro ta aqui
+      const res = await fetch("/api/matchs", { cache: "no-store" });
       const data = await res.json();
       setCheckM(true);
       setMatches(data.matches || []);

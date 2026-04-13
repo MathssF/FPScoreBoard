@@ -8,6 +8,7 @@ export interface DatabaseConfig {
   apiMap?: string;
   apiMatches?: string;
   apiPlayerMatches?:string;
+  // needConfig?: boolean;
 
   host?: string;
   port?: string;
@@ -49,13 +50,33 @@ export function getDatabaseConfig(): DatabaseConfig {
     "en";
 
   // ---------- PRIORIDADE DA API ----------
-  const envApiBase = process.env.CS_API_BASE;
-  const jsonApiBase = json.altData;
+  // const envApiBase = process.env.CS_API_BASE;
+  // const jsonApiBase = json.altData;
 
+  const envApiBase = process.env.CS_API_BASE;
+  const envApiMaps = process.env.CS_MAP;
+  const envApiMatches = process.env.CS_MATCHES;
+  const envApiPlayers = process.env.CS_PLAYER_MATCHES;
+  const envNeedConfig = process.env.NEED_CONFIG;
+
+  /*
   if (envApiBase) {
     return {
       mode: "api",
       apiBase: envApiBase,
+      lists: json.lists || { users: [], players: [] },
+      options: { lang: lang.toLowerCase() },
+    };
+  }
+  */
+  if (envApiBase) {
+    return {
+      mode: "api",
+      apiBase: envApiBase || json.altData,
+      apiMap: envApiMaps || json.altApi?.maps || "maps",
+      apiMatches: envApiMatches || json.altApi?.matches || "matches",
+      apiPlayerMatches: envApiPlayers || json.altApi?.playerMatches || "players",
+      // needConfig: envNeedConfig === "true" || json.needConfig || false,
       lists: json.lists || { users: [], players: [] },
       options: { lang: lang.toLowerCase() },
     };
@@ -87,6 +108,7 @@ export function getDatabaseConfig(): DatabaseConfig {
       name: process.env.DB_NAME || "",
       lists: json.lists || { users: [], players: [] },
       options: { lang: lang.toLowerCase() },
+      // needConfig: envNeedConfig === "true" || json.needConfig || false,
     };
   }
 
@@ -100,6 +122,7 @@ export function getDatabaseConfig(): DatabaseConfig {
     name: json.data?.name || "",
     lists: json.lists || { users: [], players: [] },
     options: { lang: lang.toLowerCase() },
+    // needConfig: envNeedConfig === "true" || json.needConfig || false,
   };
 }
 

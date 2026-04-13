@@ -6,7 +6,12 @@
     "pass":"example",
     "name": "example"
   },
-  "altData": "",
+  "altData":"",
+  "altApi": {
+    "maps":"",
+    "matches":"",
+    "playerMatches":""
+  },
   "needConfig": true,
   "lists": {
     "users": [

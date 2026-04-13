@@ -11,7 +11,8 @@ export async function GET() {
     // MODO API
     // =============================
     if (config.mode === "api") {
-      const res = await fetch(`${config.apiBase}/maps`, {
+      const mapPath = config.apiMap || 'maps';
+      const res = await fetch(`${config.apiBase}/${mapPath}`, {
         cache: "no-store",
       });
 

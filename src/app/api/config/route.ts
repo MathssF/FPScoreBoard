@@ -5,6 +5,9 @@ import { NextResponse } from "next/server";
 export interface DatabaseConfig {
   mode: "api" | "mysql";
   apiBase?: string;
+  apiMap?: string;
+  apiMatches?: string;
+  apiPlayerMatches?:string;
 
   host?: string;
   port?: string;

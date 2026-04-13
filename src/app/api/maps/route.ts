@@ -11,11 +11,10 @@ export async function GET() {
     // MODO API
     // =============================
     if (config.mode === "api") {
-      
       const base = config.apiBase!.replace(/\/$/, "");
       const path = (config.apiMap || "maps").replace(/^\//, "");
 
-      const res = await fetch(`${base}/${path}, {
+      const res = await fetch(`${base}/${path}`, {
         cache: "no-store",
       });
 

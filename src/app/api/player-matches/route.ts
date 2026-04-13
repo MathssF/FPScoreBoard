@@ -11,8 +11,10 @@ export async function GET() {
     // MODO API
     // =============================
     if (config.mode === "api") {
-      const playerMatches = config.apiPlayerMatches || 'players';
-      const res = await fetch(`${config.apiBase}/${playerMatches}`, {
+      const base = config.apiBase!.replace(/\/$/, "");
+      const path = (config.apiPlayerMatches || "players").replace(/^\//, "");
+
+      const res = await fetch(`${base}/${path}`, {
         cache: "no-store",
       });
 

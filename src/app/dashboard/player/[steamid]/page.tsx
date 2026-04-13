@@ -8,7 +8,7 @@ import LangFlags from "@/component/langFlags";
 
 export default function PlayerDetailsPage() {
   const { steamid } = useParams<{ steamid: string }>();
-  const { players, playerMatches, checkP } = usePlayers();
+  const { players, playerMatches, loading, error } = usePlayers();
   const router = useRouter();
 
   const player = useMemo(() => {
@@ -21,12 +21,34 @@ export default function PlayerDetailsPage() {
     return playerMatches.filter((m) => m.steamid64 === player.steamid64);
   }, [playerMatches, player]);
 
+  /*
   if (!checkP) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-zinc-900 text-zinc-100">
         <Header />
         <LangFlags />
         <p>Carregando informações do jogador...</p>
+      </div>
+    );
+  }
+  */
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-zinc-900 text-zinc-100">
+        <Header />
+        <LangFlags />
+        <p>Carregando informações do jogador...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-zinc-900 text-red-400">
+        <Header />
+        <LangFlags />
+        <p>{error}</p>
       </div>
     );
   }

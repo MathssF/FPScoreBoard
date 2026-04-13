@@ -1,117 +1,143 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useMatch } from "@/context/matchs";
 import { usePlayers } from "@/context/players";
 import { useMaps } from "@/context/maps";
 import { makeMatchDetails } from "@/utils/matchs";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
-import type { MatchDetails, PlayerInMatch } from "@/interfaces/matchs";
-import type Match from "@/interfaces/matchs";
-import type PlayerMatch from "@/interfaces/players";
+import type { PlayerMatch } from "@/interfaces/players";
 import type MapStats from "@/interfaces/maps";
-import MatchsStatsPage from "../../matchs-stats/page";
-import LangFlags from "@/component/langFlags";
 import Header from "@/component/header";
+import LangFlags from "@/component/langFlags";
 
 export default function MatchDetailsPage() {
   const { matchid } = useParams<{ matchid: string }>();
-  const { matches, checkM } = useMatch();
-  const { playerMatches, checkP } = usePlayers();
-  const { maps, checkMaps } = useMaps();
+  const router = useRouter();
 
-  console.log('Player Matches: ', playerMatches);
-  console.log('Maps: ', maps);
-  console.log('Matches: ', matches);
+  const { matches, loading: matchLoading, error: matchError } = useMatch();
+  const { playerMatches, loading: playerLoading, error: playerError } = usePlayers();
+  const { maps, loading: mapsLoading, error: mapsError } = useMaps();
 
-  const [matchDetail, setMatchDetail] = useState<MatchDetails | null>(null);
+  const loading = matchLoading || playerLoading || mapsLoading;
+  const error = matchError || playerError || mapsError;
 
-  useEffect(() => {
-    if (!checkM || !checkP || !checkMaps) return;
+  const matchIdNumber = Number(matchid);
 
-    const match = matches.find((m) => m.matchid === Number(matchid));
-    if (!match) return;
+  // 🔹 match base
+  const match = useMemo(
+    () => matches.find((m) => m.matchid === matchIdNumber),
+    [matches, matchIdNumber]
+  );
 
-    const playerData: PlayerMatch[] = playerMatches.filter(
-      (p) => p.matchid === match.matchid
-    );
-    const mapData: MapStats[] = maps.filter((m) => m.matchid === match.matchid);
+  // 🔹 players da partida
+  const playersInMatch: PlayerMatch[] = useMemo(
+    () => playerMatches.filter((p) => p.matchid === matchIdNumber),
+    [playerMatches, matchIdNumber]
+  );
 
-    const details = makeMatchDetails(match, playerData, mapData);
-    setMatchDetail(details);
-  }, [checkM, checkP, checkMaps, matches, playerMatches, maps, matchid]);
+  // 🔹 mapas da partida
+  const mapsInMatch: MapStats[] = useMemo(
+    () => maps.filter((m) => m.matchid === matchIdNumber),
+    [maps, matchIdNumber]
+  );
 
-  if (!checkM || !checkP || !checkMaps) {
-    return <div><Header /><LangFlags /><p className="text-zinc-400 p-4">Carregando dados...</p></div>
-  }
+  // 🔹 details agregados
+  const matchDetail = useMemo(() => {
+    if (!match) return null;
+    return makeMatchDetails(match, playersInMatch, mapsInMatch);
+  }, [match, playersInMatch, mapsInMatch]);
 
-  if (!matchDetail) {
+  // ================= LOADING =================
+  if (loading) {
     return (
-      <div className="p-6">
-          <Header />
-          <LangFlags />
-        <h1 className="text-xl font-semibold text-red-400">Partida não encontrada</h1>
-      </div>
-    );
-  }
-
-  const slug = Number(matchid);
-  const mapsInMatch = matchDetail.maps || [];
-  const match = matches.find((elem) => elem.matchid === slug) as Match | undefined;
-  const players: PlayerMatch[] = playerMatches.filter((elem) => elem.matchid === slug);
-
-  if (!match) {
-    return (
-      <div className="p-6">        
+      <div className="min-h-screen bg-zinc-900 text-zinc-100">
         <Header />
         <LangFlags />
-        <p>Partida não encontrada</p>
+        <div className="p-6">Carregando dados da partida...</div>
       </div>
-    )
+    );
   }
 
+  // ================= ERROR =================
+  if (error) {
+    return (
+      <div className="min-h-screen bg-zinc-900 text-red-400">
+        <Header />
+        <LangFlags />
+        <div className="p-6">{error}</div>
+      </div>
+    );
+  }
+
+  // ================= NOT FOUND =================
+  if (!match || !matchDetail) {
+    return (
+      <div className="min-h-screen bg-zinc-900 text-zinc-100">
+        <Header />
+        <LangFlags />
+        <div className="p-6">
+          <h1 className="text-xl font-semibold text-red-400">
+            Partida não encontrada
+          </h1>
+        </div>
+      </div>
+    );
+  }
+
+  // ================= PAGE =================
   return (
-    <div className="p-6 space-y-6">
-        <Header />
-        <LangFlags />
+    <div className="min-h-screen bg-zinc-900 text-zinc-100 p-6 space-y-6">
+      <Header />
+      <LangFlags />
+
+      <button
+        onClick={() => router.back()}
+        className="text-blue-400 hover:underline"
+      >
+        ← Voltar
+      </button>
+
+      {/* Header da partida */}
       <header className="border-b border-zinc-700 pb-4">
-        <h1 className="text-2xl font-bold text-white">
+        <h1 className="text-2xl font-bold">
           Partida #{match.matchid} — {match.team1_name} vs {match.team2_name}
         </h1>
         <p className="text-sm text-zinc-400">
           Início: {match.start_time} | Fim: {match.end_time ?? "Em andamento"}
         </p>
-        <p className="text-zinc-300">
+        <p>
           Vencedor:{" "}
           <span className="font-semibold text-green-400">{match.winner}</span>
         </p>
       </header>
 
+      {/* Mapas */}
       <section>
-        <h2 className="text-xl font-semibold text-white mb-2">Mapas</h2>
-        {mapsInMatch && mapsInMatch.length > 0 ? (
+        <h2 className="text-xl font-semibold mb-2">Mapas</h2>
+        {mapsInMatch.length === 0 ? (
+          <p className="text-zinc-500">Nenhum mapa encontrado.</p>
+        ) : (
           <ul className="space-y-2">
             {mapsInMatch.map((m) => (
               <li
                 key={`${m.matchid}-${m.mapnumber}`}
                 className="border border-zinc-700 rounded p-3"
               >
-                <strong>{m.mapname}</strong> — {m.team1_score} x {m.team2_score} (
-                {m.winner})
+                <strong>{m.mapname}</strong> — {m.team1_score} x {m.team2_score} ({m.winner})
               </li>
             ))}
           </ul>
-        ) : (
-          <p className="text-zinc-500">Nenhum mapa encontrado.</p>
         )}
       </section>
 
+      {/* Jogadores */}
       <section>
-        <h2 className="text-xl font-semibold text-white mb-2">Jogadores</h2>
+        <h2 className="text-xl font-semibold mb-2">Jogadores</h2>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-left border-collapse border border-zinc-700">
-            <thead className="bg-zinc-800 text-zinc-300">
+          <table className="min-w-full border border-zinc-700">
+            <thead className="bg-zinc-800">
               <tr>
                 <th className="p-2">Nome</th>
                 <th className="p-2">Time</th>
@@ -122,7 +148,7 @@ export default function MatchDetailsPage() {
               </tr>
             </thead>
             <tbody>
-              {players.map((p) => (
+              {playersInMatch.map((p) => (
                 <tr
                   key={p.steamid64}
                   className="border-t border-zinc-700 hover:bg-zinc-800/40"

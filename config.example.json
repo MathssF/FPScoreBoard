@@ -6,6 +6,7 @@
     "pass":"example",
     "name": "example"
   },
+  "altData": "",
   "needConfig": true,
   "lists": {
     "users": [

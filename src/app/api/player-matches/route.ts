@@ -11,6 +11,12 @@ function loadConfig() {
     const file = fs.readFileSync(configPath, "utf-8");
     const json = JSON.parse(file);
 
+    if (json.altData) {
+      return {
+        host: 
+      }
+    }
+
     if (!json.data) throw new Error("Invalid config: missing 'data'.");
 
     return {
@@ -19,6 +25,7 @@ function loadConfig() {
       user: json.data.user,
       password: json.data.pass,
       database: json.data.name,
+      alt: false
     };
   } catch (error) {
     console.error("Error loading config.json:", error);

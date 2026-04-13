@@ -40,7 +40,7 @@ export function getDatabaseConfig(): DatabaseConfig {
 
   return {
     host: process.env.DB_HOST || json.data?.host || "",
-    port: process.env.DB_PORT || json.data?.port || "3306",
+    port: process.env.DB_PORT || json.data?.port || "",
     user: process.env.DB_USER || json.data?.user || "",
     pass: process.env.DB_PASS || json.data?.pass || "",
     lists: json.lists || { users: [], players: [] },

@@ -7,7 +7,7 @@ import { useMaps } from "@/context/maps";
 import { makeMatchDetails } from "@/utils/matchs";
 import { useMemo } from "react";
 
-import type { PlayerMatch } from "@/interfaces/players";
+import type PlayerMatch from "@/interfaces/players";
 import type MapStats from "@/interfaces/maps";
 import Header from "@/component/header";
 import LangFlags from "@/component/langFlags";

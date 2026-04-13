@@ -5,28 +5,50 @@ import MapStats from "@/interfaces/maps";
 
 interface MapsContextType {
   maps: MapStats[];
+  loading: boolean;
+  error: string | null;
   fetchMaps: () => Promise<void>;
-  checkMaps: boolean;
 }
 
 const MapsContext = createContext<MapsContextType | undefined>(undefined);
 
 export function MapsProvider({ children }: { children: ReactNode }) {
   const [maps, setMaps] = useState<MapStats[]>([]);
-  const [checkMaps, setCheckMaps] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   async function fetchMaps() {
     try {
+      setLoading(true);
+      setError(null);
+
       const res = await fetch("/api/maps", { cache: "no-store" });
-      if (!res.ok) throw new Error(`Erro ao buscar mapas: ${res.statusText}`);
+
+      if (!res.ok) {
+        throw new Error("API returned error");
+      }
 
       const data = await res.json();
-      setMaps(data.maps || []);
-      setCheckMaps(true);
-    } catch (error) {
-      console.error("Erro ao carregar mapas:", error);
+
+      // payload resiliente (igual players e matches)
+      const mapsPayload: MapStats[] =
+        data.maps ||
+        data.mapStats ||
+        data.data ||
+        data.result ||
+        [];
+
+      if (!Array.isArray(mapsPayload)) {
+        throw new Error("Invalid maps payload");
+      }
+
+      setMaps(mapsPayload);
+    } catch (err) {
+      console.error("Erro ao carregar mapas:", err);
+      setError("Falha ao carregar mapas");
       setMaps([]);
-      setCheckMaps(true);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -35,7 +57,7 @@ export function MapsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <MapsContext.Provider value={{ maps, fetchMaps, checkMaps }}>
+    <MapsContext.Provider value={{ maps, loading, error, fetchMaps }}>
       {children}
     </MapsContext.Provider>
   );

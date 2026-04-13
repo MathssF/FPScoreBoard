@@ -6,8 +6,24 @@ import { useMatch } from "@/context/matchs";
 import { useRouter } from "next/navigation";
 
 export default function MatchsStatsPage() {
-  const { matches } = useMatch();
+  const { matches, loading, error } = useMatch();
   const router = useRouter();
+
+  if (loading) {
+    return (
+      <div className="p-8 text-center text-zinc-400">
+        Carregando partidas...
+      </div>
+    );
+  } 
+
+  if (error) {
+    return (
+      <div className="p-8 text-center text-red-400">
+        {error}
+      </div>
+    );
+  }
 
   if (!matches || matches.length === 0) {
     return (

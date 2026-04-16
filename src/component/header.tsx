@@ -40,7 +40,7 @@ export default function Header() {
           <Link href="/dashboard/matchs-stats" className="hover:text-zinc-300 transition-colors">
             {t.match}
           </Link>
-          <Link href="/dashboard/players-stats" className="hover:text-zinc-300 transition-colors">
+          <Link href="/dashboard/players-matchs" className="hover:text-zinc-300 transition-colors">
             {t.players}
           </Link>
         </nav>

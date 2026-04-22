@@ -57,3 +57,11 @@ Após configurar corretamente, você pode acessar as seguintes páginas:
 - `/dashboard/maps-stats` - Estatísticas de mapas
 
 O link "Config" aparece no menu apenas quando a configuração ainda não foi concluída.
+
+## Contribuição
+
+Quer contribuir com o projeto? Envie seu Pull Request para a branch `development`.
+
+## Branch Tests
+
+A branch `tests` contém ferramentas para testar um banco de dados MySQL local, útil para desenvolvimento e debug.

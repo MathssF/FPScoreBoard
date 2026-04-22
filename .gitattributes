@@ -1,1 +1,6 @@
 .next/** linguist-generated=true
+node_modules/** linguist-generated=true
+dist/** linguist-generated=true
+build/** linguist-generated=true
+
+# Ignore all files in the public directory except for the ones we want to include

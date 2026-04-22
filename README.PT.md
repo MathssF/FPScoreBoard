@@ -45,6 +45,8 @@ Para dados de API e banco de dados, o arquivo `.env` sempre tem prioridade sobre
 
 Para a flag `needConfig` (que controla se o link de configuração aparece no menu), o `config.json` tem prioridade sobre o `.env`.
 
+E se houver tanto um banco de dados, quanto uma API, a API tera prioridade nas chamadas.
+
 ## Uso
 
 Após configurar corretamente, você pode acessar as seguintes páginas:

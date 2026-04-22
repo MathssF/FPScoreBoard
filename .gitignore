@@ -43,7 +43,3 @@ next-env.d.ts
 
 # db
 config.json
-
-# opencode
-.opencode/
-.opencode.*

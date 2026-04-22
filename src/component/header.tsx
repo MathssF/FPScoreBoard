@@ -2,25 +2,45 @@
 
 import { useLanguage } from "@/context/lang";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const { language } = useLanguage();
+  const [showConfig, setShowConfig] = useState(false);
+
+  useEffect(() => {
+    async function checkNeedConfig() {
+      try {
+        const res = await fetch("/api/config-status", { cache: "no-store" });
+        const data = await res.json();
+        if (data.needConfig) {
+          setShowConfig(true);
+        }
+      } catch (err) {
+        setShowConfig(true);
+      }
+    }
+    checkNeedConfig();
+  }, []);
 
   const translations = {
     pt: {
       home: "Início",
       match: "Partidas",
       players: "Jogadores",
+      config: "Config",
     },
     en: {
       home: "Home",
       match: "Matchs",
       players: "Players",
+      config: "Config",
     },
     es: {
       home: "Inicio",
       match: "Juegos",
       players: "Jogadores",
+      config: "Config",
     },
   };
 
@@ -43,6 +63,11 @@ export default function Header() {
           <Link href="/dashboard/players-matchs" className="hover:text-zinc-300 transition-colors">
             {t.players}
           </Link>
+          {showConfig && (
+            <Link href="/start-config" className="hover:text-green-400 transition-colors text-green-400">
+              {t.config}
+            </Link>
+          )}
         </nav>
       </div>
 

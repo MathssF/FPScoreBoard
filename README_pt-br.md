@@ -1,7 +1,6 @@
 # FPScoreBoard
 
-Frontend para visualização de estatísticas do MatchZy para CS2.
-https://github.com/shobhit-pathak/MatchZy
+Frontend para visualização de estatísticas do [MatchZy](https://github.com/shobhit-pathak/MatchZy) para CS2.
 
 ## Instalação
 
@@ -66,3 +65,15 @@ Quer contribuir com o projeto? Envie seu Pull Request para a branch `development
 ## Branch Tests
 
 A branch `tests` contém ferramentas para testar um banco de dados MySQL local, útil para desenvolvimento e debug.
+
+## Tecnologias
+
+- **Next.js (16.0.1)**: Framework React com server-side rendering e API routes integradas
+- **React (19.2.0)**: Biblioteca principal para construção da interface
+- **Tailwind CSS (v4)**: Framework de estilização utilitária
+- **MySQL2**: Driver para conexão com banco de dados MySQL
+- **TypeScript**: Superset JavaScript com tipagem estática
+- **ESLint**: Ferramenta de análise de código
+- **Dotenv**: Gerenciamento de variáveis de ambiente
+- **Faker.js**: Geração de dados fake para testes
+- **Ts-node**: Execução de TypeScript no Node.js

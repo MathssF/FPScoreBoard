@@ -134,6 +134,43 @@ export function getDatabaseConfig(): DatabaseConfig {
   };
 }
 
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const filePath = path.join(process.cwd(), "config.json");
+    
+    const configJson = {
+      data: {
+        host: body.host || "",
+        port: body.port || "3306",
+        user: body.user || "",
+        pass: body.pass || "",
+        name: body.name || "",
+      },
+      altData: body.altData || "",
+      altApi: {
+        maps: body.apiMap || "",
+        matches: body.apiMatches || "",
+        playerMatches: body.apiPlayerMatches || "",
+      },
+      needConfig: false,
+      lists: {
+        users: [],
+        players: [],
+      },
+      options: {
+        lang: body.lang || "en",
+      },
+    };
+
+    fs.writeFileSync(filePath, JSON.stringify(configJson, null, 2), "utf-8");
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error("Erro ao salvar config.json:", err);
+    return NextResponse.json({ success: false, error: "Erro ao salvar configuração" }, { status: 500 });
+  }
+}
+
 /**
  * API Route Handler
  */

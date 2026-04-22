@@ -1,6 +1,7 @@
 # FPScoreBoard
 
 Frontend para visualização de estatísticas do MatchZy para CS2.
+https://github.com/shobhit-pathak/MatchZy
 
 ## Instalação
 

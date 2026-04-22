@@ -1,4 +1,4 @@
-.next/** linguist-generated=true
+src/.next/** linguist-generated=true
 node_modules/** linguist-generated=true
 dist/** linguist-generated=true
 build/** linguist-generated=true
